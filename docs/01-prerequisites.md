@@ -14,7 +14,7 @@ This tutorial leverages the [Google Cloud Platform](https://cloud.google.com/) t
 
 Follow the Google Cloud SDK [documentation](https://cloud.google.com/sdk/) to install and configure the `gcloud` command line utility.
 
-Verify the Google Cloud SDK version is 338.0.0 or higher:
+Verify the Google Cloud SDK version is 425.0.0 or higher:
 
 ```
 gcloud version
@@ -30,25 +30,82 @@ If you are using the `gcloud` command-line tool for the first time `init` is the
 gcloud init
 ```
 
-Then be sure to authorize gcloud to access the Cloud Platform with your Google user credentials:
+Create a new gcloud configuration for your project on the machine you will use to access it.
+
+```
+gcloud config configurations create [NAME]
+```
+
+Set the Google Cloud project name to the active gcloud configuration.
+
+```
+gcloud config set project [PROJECT-NAME]
+```
+
+Then be sure to authorize the Google account that has some type of access/ownership of this project.:
 
 ```
 gcloud auth login
 ```
 
+Then se the below command if you are developing code in something like a local development environment and it would be easier to use user credentials than setup a service account.:
+
+```
+gcloud auth application-default login
+```
+
 Next set a default compute region and compute zone:
 
 ```
-gcloud config set compute/region us-west1
+gcloud config set compute/region us-east1
 ```
 
 Set a default compute zone:
 
 ```
-gcloud config set compute/zone us-west1-c
+gcloud config set compute/zone us-east1-c
 ```
 
-> Use the `gcloud compute zones list` command to view additional regions and zones.
+> **NOTE**: Use the `gcloud compute zones list` command to view additional regions and zones.
+
+Review all the configurations that exist on your machine.
+
+```
+gcloud config configurations list
+```
+
+Change default configuration that is active to switch between projects.
+
+```
+gcloud config configurations activate [NAME]
+```
+
+Review only the active project.
+
+```
+gcloud projects list
+```
+
+Review the details of the current active configuration such as the name, region, account.
+
+```
+gcloud config list 
+```
+
+Set an attribute of the current active configuration
+
+```
+gcloud config set [ATTRIBUTE] [NAME of ATTRIBUTE]
+```
+
+List the authenticate user ids and the currently active one, which will have a * next to what shows in the terminal.
+
+```
+gcloud auth list
+```
+
+Above should show the current active account that you’ve configured with your current active project.
+
 
 ## Running Commands in Parallel with tmux
 
